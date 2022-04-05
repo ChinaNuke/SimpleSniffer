@@ -19,8 +19,8 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
 from PySide6.QtWidgets import (QApplication, QComboBox, QHBoxLayout, QHeaderView,
     QLabel, QLineEdit, QMainWindow, QMenu,
     QMenuBar, QPushButton, QScrollArea, QSizePolicy,
-    QStatusBar, QTableWidget, QTableWidgetItem, QTreeWidget,
-    QTreeWidgetItem, QVBoxLayout, QWidget)
+    QSpacerItem, QStatusBar, QTableWidget, QTableWidgetItem,
+    QTreeWidget, QTreeWidgetItem, QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -35,76 +35,109 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.horizontalLayout_2 = QHBoxLayout()
-        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.hLayout1 = QHBoxLayout()
+        self.hLayout1.setObjectName(u"hLayout1")
         self.label_2 = QLabel(self.centralwidget)
         self.label_2.setObjectName(u"label_2")
 
-        self.horizontalLayout_2.addWidget(self.label_2)
+        self.hLayout1.addWidget(self.label_2)
 
         self.comboNIC = QComboBox(self.centralwidget)
         self.comboNIC.setObjectName(u"comboNIC")
+        sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.comboNIC.sizePolicy().hasHeightForWidth())
+        self.comboNIC.setSizePolicy(sizePolicy)
+        self.comboNIC.setMinimumSize(QSize(30, 30))
 
-        self.horizontalLayout_2.addWidget(self.comboNIC)
+        self.hLayout1.addWidget(self.comboNIC)
+
+        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.hLayout1.addItem(self.horizontalSpacer)
 
         self.btnStart = QPushButton(self.centralwidget)
         self.btnStart.setObjectName(u"btnStart")
+        self.btnStart.setMinimumSize(QSize(0, 30))
+        self.btnStart.setFlat(False)
 
-        self.horizontalLayout_2.addWidget(self.btnStart)
+        self.hLayout1.addWidget(self.btnStart)
 
         self.btnStop = QPushButton(self.centralwidget)
         self.btnStop.setObjectName(u"btnStop")
+        self.btnStop.setMinimumSize(QSize(0, 30))
 
-        self.horizontalLayout_2.addWidget(self.btnStop)
+        self.hLayout1.addWidget(self.btnStop)
 
 
-        self.verticalLayout.addLayout(self.horizontalLayout_2)
+        self.verticalLayout.addLayout(self.hLayout1)
 
-        self.horizontalLayout = QHBoxLayout()
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.hLayout2 = QHBoxLayout()
+        self.hLayout2.setObjectName(u"hLayout2")
         self.label = QLabel(self.centralwidget)
         self.label.setObjectName(u"label")
 
-        self.horizontalLayout.addWidget(self.label)
+        self.hLayout2.addWidget(self.label)
 
         self.txtFilter = QLineEdit(self.centralwidget)
         self.txtFilter.setObjectName(u"txtFilter")
+        self.txtFilter.setMinimumSize(QSize(0, 30))
 
-        self.horizontalLayout.addWidget(self.txtFilter)
+        self.hLayout2.addWidget(self.txtFilter)
 
         self.btnFilter = QPushButton(self.centralwidget)
         self.btnFilter.setObjectName(u"btnFilter")
+        self.btnFilter.setMinimumSize(QSize(0, 30))
 
-        self.horizontalLayout.addWidget(self.btnFilter)
+        self.hLayout2.addWidget(self.btnFilter)
 
 
-        self.verticalLayout.addLayout(self.horizontalLayout)
+        self.verticalLayout.addLayout(self.hLayout2)
 
-        self.scrollArea = QScrollArea(self.centralwidget)
-        self.scrollArea.setObjectName(u"scrollArea")
-        self.scrollArea.setWidgetResizable(True)
-        self.scrollAreaWidgetContents = QWidget()
-        self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 818, 251))
-        self.tableWidget = QTableWidget(self.scrollAreaWidgetContents)
-        self.tableWidget.setObjectName(u"tableWidget")
-        self.tableWidget.setGeometry(QRect(60, 0, 256, 192))
-        self.scrollArea.setWidget(self.scrollAreaWidgetContents)
+        self.tblFlows = QTableWidget(self.centralwidget)
+        if (self.tblFlows.columnCount() < 6):
+            self.tblFlows.setColumnCount(6)
+        __qtablewidgetitem = QTableWidgetItem()
+        __qtablewidgetitem.setTextAlignment(Qt.AlignLeading|Qt.AlignVCenter);
+        self.tblFlows.setHorizontalHeaderItem(0, __qtablewidgetitem)
+        __qtablewidgetitem1 = QTableWidgetItem()
+        __qtablewidgetitem1.setTextAlignment(Qt.AlignLeading|Qt.AlignVCenter);
+        self.tblFlows.setHorizontalHeaderItem(1, __qtablewidgetitem1)
+        __qtablewidgetitem2 = QTableWidgetItem()
+        __qtablewidgetitem2.setTextAlignment(Qt.AlignLeading|Qt.AlignVCenter);
+        self.tblFlows.setHorizontalHeaderItem(2, __qtablewidgetitem2)
+        __qtablewidgetitem3 = QTableWidgetItem()
+        __qtablewidgetitem3.setTextAlignment(Qt.AlignLeading|Qt.AlignVCenter);
+        self.tblFlows.setHorizontalHeaderItem(3, __qtablewidgetitem3)
+        __qtablewidgetitem4 = QTableWidgetItem()
+        __qtablewidgetitem4.setTextAlignment(Qt.AlignLeading|Qt.AlignVCenter);
+        self.tblFlows.setHorizontalHeaderItem(4, __qtablewidgetitem4)
+        __qtablewidgetitem5 = QTableWidgetItem()
+        __qtablewidgetitem5.setTextAlignment(Qt.AlignLeading|Qt.AlignVCenter);
+        self.tblFlows.setHorizontalHeaderItem(5, __qtablewidgetitem5)
+        self.tblFlows.setObjectName(u"tblFlows")
+        self.tblFlows.setAutoFillBackground(False)
+        self.tblFlows.setSortingEnabled(True)
+        self.tblFlows.setColumnCount(6)
+        self.tblFlows.horizontalHeader().setVisible(True)
+        self.tblFlows.horizontalHeader().setStretchLastSection(True)
+        self.tblFlows.verticalHeader().setVisible(False)
 
-        self.verticalLayout.addWidget(self.scrollArea)
+        self.verticalLayout.addWidget(self.tblFlows)
 
         self.scrollArea_2 = QScrollArea(self.centralwidget)
         self.scrollArea_2.setObjectName(u"scrollArea_2")
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollAreaWidgetContents_2 = QWidget()
         self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 818, 251))
-        self.treeWidget = QTreeWidget(self.scrollAreaWidgetContents_2)
+        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 818, 245))
+        self.tblInfo = QTreeWidget(self.scrollAreaWidgetContents_2)
         __qtreewidgetitem = QTreeWidgetItem()
         __qtreewidgetitem.setText(0, u"1");
-        self.treeWidget.setHeaderItem(__qtreewidgetitem)
-        self.treeWidget.setObjectName(u"treeWidget")
-        self.treeWidget.setGeometry(QRect(10, 0, 256, 192))
+        self.tblInfo.setHeaderItem(__qtreewidgetitem)
+        self.tblInfo.setObjectName(u"tblInfo")
+        self.tblInfo.setGeometry(QRect(10, 0, 256, 192))
         self.scrollArea_2.setWidget(self.scrollAreaWidgetContents_2)
 
         self.verticalLayout.addWidget(self.scrollArea_2)
@@ -143,7 +176,19 @@ class Ui_MainWindow(object):
         self.btnStart.setText(QCoreApplication.translate("MainWindow", u"Start", None))
         self.btnStop.setText(QCoreApplication.translate("MainWindow", u"Stop", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Filter: ", None))
-        self.btnFilter.setText(QCoreApplication.translate("MainWindow", u"Filter", None))
+        self.btnFilter.setText(QCoreApplication.translate("MainWindow", u"Apply filter", None))
+        ___qtablewidgetitem = self.tblFlows.horizontalHeaderItem(0)
+        ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"No.", None));
+        ___qtablewidgetitem1 = self.tblFlows.horizontalHeaderItem(1)
+        ___qtablewidgetitem1.setText(QCoreApplication.translate("MainWindow", u"Time", None));
+        ___qtablewidgetitem2 = self.tblFlows.horizontalHeaderItem(2)
+        ___qtablewidgetitem2.setText(QCoreApplication.translate("MainWindow", u"Source", None));
+        ___qtablewidgetitem3 = self.tblFlows.horizontalHeaderItem(3)
+        ___qtablewidgetitem3.setText(QCoreApplication.translate("MainWindow", u"Destination", None));
+        ___qtablewidgetitem4 = self.tblFlows.horizontalHeaderItem(4)
+        ___qtablewidgetitem4.setText(QCoreApplication.translate("MainWindow", u"Protocol", None));
+        ___qtablewidgetitem5 = self.tblFlows.horizontalHeaderItem(5)
+        ___qtablewidgetitem5.setText(QCoreApplication.translate("MainWindow", u"Info", None));
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File", None))
         self.menuHelp.setTitle(QCoreApplication.translate("MainWindow", u"Help", None))
         self.menuView.setTitle(QCoreApplication.translate("MainWindow", u"View", None))
