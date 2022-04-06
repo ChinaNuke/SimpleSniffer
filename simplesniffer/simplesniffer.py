@@ -51,14 +51,18 @@ class MainWindow(QtWidgets.QMainWindow):
                 break
 
     def init_flowtable(self):
-        self.ui.tblFlows.setColumnWidth(0, 30)  # No.
-        self.ui.tblFlows.setColumnWidth(1, 80)  # Time
+        self.ui.tblFlows.setColumnWidth(0, 40)  # No.
+        self.ui.tblFlows.setColumnWidth(1, 160)  # Time
         self.ui.tblFlows.setColumnWidth(2, 160)  # Source
         self.ui.tblFlows.setColumnWidth(3, 160)  # Destination
         self.ui.tblFlows.setColumnWidth(4, 160)  # Protocol
+        self.ui.tblFlows.setColumnWidth(5, 80)  # Protocol
         # self.ui.tblFlows.setColumnWidth(5, 200) # Info
 
+        # self.ui.tblFlows.currentItemChanged.connect(self.update_details)
+        # self.ui.tblFlows.currentItemChanged.connect(self.update_hexview)
         self.ui.tblFlows.currentItemChanged.connect(self.update_details)
+        self.ui.tblFlows.currentItemChanged.connect(self.update_hexview)
 
     @Slot(tuple)
     def update_flowtable(self, summary):
@@ -67,7 +71,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # insert a new row and fill up the columns
         row_num = self.ui.tblFlows.rowCount()
         self.ui.tblFlows.insertRow(row_num)
-        for i in range(6):
+        for i in range(7):
             self.ui.tblFlows.setItem(row_num, i, QTableWidgetItem(summary[i]))
 
         if not self.ui.tblFlows.selectedItems():
@@ -75,6 +79,10 @@ class MainWindow(QtWidgets.QMainWindow):
 
     @Slot(QTableWidgetItem, QTableWidgetItem)
     def update_details(self, current, previous):
+        if not current:
+            # the table has been cleared
+            self.ui.treeDetials.clear()
+            return
         row = current.row()
         index = int(self.ui.tblFlows.item(row, 0).text())
         logger.debug(f'selected index: {index}')
@@ -108,14 +116,34 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.treeDetials.clear()
         self.ui.treeDetials.insertTopLevelItems(0, items)
 
+    @Slot(QTableWidgetItem, QTableWidgetItem)
+    def update_hexview(self, current, previous):
+        if not current:
+            # the table has been cleared
+            self.ui.txtHex.clear()
+            return
+        logger.debug('updating hexview...')
+        row = current.row()
+        index = int(self.ui.tblFlows.item(row, 0).text())
+        pkt = self.worker.get_packet(index)
+        self.ui.txtHex.setText(self.parser.hexdump(pkt))
+
     @Slot()
     def start_sniffing(self):
         filter_text = self.ui.txtFilter.text()
         iface = self.ui.comboNIC.currentText()
 
+        # 简单实现类似 Wireshark 对 http、https 等应用层协议过滤的支持
+        filter_text = filter_text.replace('https', '(port 443)')
+        filter_text = filter_text.replace('http', '(port 80)')
+        filter_text = filter_text.replace('ftp', '(port 21)')
+        filter_text = filter_text.replace('ssh', '(port 22)')
+
         # clean up the views
-        self.ui.tblFlows.clear()
+        self.ui.tblFlows.clearContents()
+        self.ui.tblFlows.setRowCount(0)
         self.ui.treeDetials.clear()
+        self.ui.txtHex.clear()
 
         # start a new thread to run the sniffer
         # https://realpython.com/python-pyqt-qthread/

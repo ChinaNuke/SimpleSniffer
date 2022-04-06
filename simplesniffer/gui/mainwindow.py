@@ -19,8 +19,8 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
 from PySide6.QtWidgets import (QAbstractItemView, QApplication, QComboBox, QHBoxLayout,
     QHeaderView, QLabel, QLineEdit, QMainWindow,
     QMenu, QMenuBar, QPushButton, QSizePolicy,
-    QStatusBar, QTableWidget, QTableWidgetItem, QTreeWidget,
-    QTreeWidgetItem, QVBoxLayout, QWidget)
+    QStatusBar, QTableWidget, QTableWidgetItem, QTextBrowser,
+    QTreeWidget, QTreeWidgetItem, QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -81,8 +81,8 @@ class Ui_MainWindow(object):
         self.verticalLayout.addLayout(self.hLayout1)
 
         self.tblFlows = QTableWidget(self.centralwidget)
-        if (self.tblFlows.columnCount() < 6):
-            self.tblFlows.setColumnCount(6)
+        if (self.tblFlows.columnCount() < 7):
+            self.tblFlows.setColumnCount(7)
         __qtablewidgetitem = QTableWidgetItem()
         __qtablewidgetitem.setTextAlignment(Qt.AlignLeading|Qt.AlignVCenter);
         self.tblFlows.setHorizontalHeaderItem(0, __qtablewidgetitem)
@@ -101,28 +101,48 @@ class Ui_MainWindow(object):
         __qtablewidgetitem5 = QTableWidgetItem()
         __qtablewidgetitem5.setTextAlignment(Qt.AlignLeading|Qt.AlignVCenter);
         self.tblFlows.setHorizontalHeaderItem(5, __qtablewidgetitem5)
+        __qtablewidgetitem6 = QTableWidgetItem()
+        __qtablewidgetitem6.setTextAlignment(Qt.AlignLeading|Qt.AlignVCenter);
+        self.tblFlows.setHorizontalHeaderItem(6, __qtablewidgetitem6)
         self.tblFlows.setObjectName(u"tblFlows")
+        font = QFont()
+        font.setPointSize(11)
+        self.tblFlows.setFont(font)
         self.tblFlows.setAutoFillBackground(False)
         self.tblFlows.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.tblFlows.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.tblFlows.setSortingEnabled(True)
-        self.tblFlows.setColumnCount(6)
+        self.tblFlows.setColumnCount(7)
         self.tblFlows.horizontalHeader().setVisible(True)
         self.tblFlows.horizontalHeader().setStretchLastSection(True)
         self.tblFlows.verticalHeader().setVisible(False)
 
         self.verticalLayout.addWidget(self.tblFlows)
 
+        self.horizontalLayout = QHBoxLayout()
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.treeDetials = QTreeWidget(self.centralwidget)
         __qtreewidgetitem = QTreeWidgetItem()
         __qtreewidgetitem.setText(0, u"1");
         self.treeDetials.setHeaderItem(__qtreewidgetitem)
         self.treeDetials.setObjectName(u"treeDetials")
+        font1 = QFont()
+        font1.setPointSize(12)
+        self.treeDetials.setFont(font1)
         self.treeDetials.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.treeDetials.setIndentation(20)
         self.treeDetials.header().setVisible(False)
 
-        self.verticalLayout.addWidget(self.treeDetials)
+        self.horizontalLayout.addWidget(self.treeDetials)
+
+        self.txtHex = QTextBrowser(self.centralwidget)
+        self.txtHex.setObjectName(u"txtHex")
+        self.txtHex.setFont(font1)
+
+        self.horizontalLayout.addWidget(self.txtHex)
+
+
+        self.verticalLayout.addLayout(self.horizontalLayout)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
@@ -169,7 +189,9 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem4 = self.tblFlows.horizontalHeaderItem(4)
         ___qtablewidgetitem4.setText(QCoreApplication.translate("MainWindow", u"Protocol", None));
         ___qtablewidgetitem5 = self.tblFlows.horizontalHeaderItem(5)
-        ___qtablewidgetitem5.setText(QCoreApplication.translate("MainWindow", u"Info", None));
+        ___qtablewidgetitem5.setText(QCoreApplication.translate("MainWindow", u"Length", None));
+        ___qtablewidgetitem6 = self.tblFlows.horizontalHeaderItem(6)
+        ___qtablewidgetitem6.setText(QCoreApplication.translate("MainWindow", u"Info", None));
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File", None))
         self.menuHelp.setTitle(QCoreApplication.translate("MainWindow", u"Help", None))
         self.menuView.setTitle(QCoreApplication.translate("MainWindow", u"View", None))
