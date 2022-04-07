@@ -112,7 +112,8 @@ class Sniffer(QObject):
             else:
                 logger.debug('TCP')
                 info = pkt.sprintf(
-                    '%r,TCP.sport% -> %r,TCP.dport% [%TCP.flags%] Seq=%TCP.seq% Ack=%TCP.ack% Win=%TCP.window%'
+                    '%r,TCP.sport% -> %r,TCP.dport% [%TCP.flags%] '
+                    'Seq=%TCP.seq% Ack=%TCP.ack% Win=%TCP.window%'
                 )
             # logger.debug(f'info: {info}')
 
